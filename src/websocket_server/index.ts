@@ -1,13 +1,16 @@
-import { WebSocketServer } from "ws";
+import { pipeline } from "stream";
+import { createWebSocketStream, WebSocketServer } from "ws";
 import { handleEvent } from "./handleEvent.js";
 
 export const wss = new WebSocketServer({ port:8080 });
 
-wss.on("connection", ws => {
+wss.on("connection", (ws) => {
     console.log("Connection accepted!");
-    ws.on("message", data => {
+    const stream = createWebSocketStream(ws, { decodeStrings: false });
+
+    stream.on("data", async (data) => {
         const eventData: Array<string> = JSON.stringify(data.toString()).replace(/"/g,"").split(" ");
-        console.log(eventData);
-        handleEvent(eventData);
-    });
+        stream.write(await handleEvent(eventData));
+    }); 
+
 });

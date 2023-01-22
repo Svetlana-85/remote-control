@@ -1,7 +1,5 @@
 import { httpServer } from "./src/http_server/index.js";
-// import { mouse } from "@nut-tree/nut-js";
 import { wss } from "./src/websocket_server/index.js";
-// import { WebSocketServer } from "ws";
 
 const HTTP_PORT = 8181;
 
@@ -11,8 +9,7 @@ httpServer.listen(HTTP_PORT, () => {
 
 process.on('SIGINT', () => {
     httpServer.close(() => process.exit());
+    ws.close();
 });
 
 const ws = wss;
-
-// const el = document.querySelector("a");
