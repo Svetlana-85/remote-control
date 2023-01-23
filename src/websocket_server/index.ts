@@ -1,8 +1,8 @@
-import { pipeline } from "stream";
 import { createWebSocketStream, WebSocketServer } from "ws";
+import { WSS_PORT } from "./constants.js";
 import { handleEvent } from "./handleEvent.js";
 
-export const wss = new WebSocketServer({ port:8080 });
+export const wss = new WebSocketServer({ port: WSS_PORT });
 
 wss.on("connection", (ws) => {
     console.log("WebSocketServer connection accepted!");

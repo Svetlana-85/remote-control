@@ -1,4 +1,4 @@
-import { FileType, mouse, Region, screen } from "@nut-tree/nut-js";
+import { mouse } from "@nut-tree/nut-js";
 import { drawRectangle, drawCircle } from "./drawObject.js";
 import { getScreenShot } from "./screenShot.js";
 
@@ -39,4 +39,4 @@ export const handleEvent = async (eventData: Array<string>): Promise<string> => 
           return `${eventData[0]} ${position.x},${position.y}`;
     }
     return eventData[0];
-}
+};
