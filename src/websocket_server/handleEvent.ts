@@ -1,9 +1,9 @@
-import { mouse } from "@nut-tree/nut-js";
+import { FileType, mouse, Region, screen } from "@nut-tree/nut-js";
 import { drawRectangle, drawCircle } from "./drawObject.js";
+import { getScreenShot } from "./screenShot.js";
 
 export const handleEvent = async (eventData: Array<string>): Promise<string> => {
     const position = await mouse.getPosition();
-    console.log(`${eventData[0]}`);
     switch (eventData[0]) {
         case "draw_circle":
           drawCircle(+eventData[1], position.x, position.y);
@@ -24,16 +24,18 @@ export const handleEvent = async (eventData: Array<string>): Promise<string> => 
           break;
         case "mouse_left":
           position.x = position.x - parseInt(eventData[1]);
-          console.log();
           await mouse.setPosition(position);
           break;
         case "mouse_right":
           position.x = position.x + parseInt(eventData[1]);
           await mouse.setPosition(position);
           break;
-        case "prnt_scrn": console.log(eventData[0]);
-          break;
+        case "prnt_scrn":
+          const arg = await getScreenShot(position.x, position.y);
+          console.log(`Result: ${eventData[0]}`);
+          return `${eventData[0]} ${arg}`;
         case "mouse_position":
+          console.log(`Result: ${eventData[0]} ${position.x},${position.y}`);
           return `${eventData[0]} ${position.x},${position.y}`;
     }
     return eventData[0];

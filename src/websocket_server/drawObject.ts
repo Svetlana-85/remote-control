@@ -9,7 +9,6 @@ export const drawRectangle = async(x: number, y: number) => {
 
 export const drawCircle = async(r: number, x0: number, y0: number) => {
     const n = Math.round(2 * Math.PI * r);
-    console.log(`circle ${n}`);
     for(let i = 1; i <= n; i++) {
         const x: number = Math.ceil((Math.cos(2 * Math.PI * i / n) * r + 0.5) + x0 - r) ;
         const y: number = Math.ceil((Math.sin(2 * Math.PI * i / n) * r + 0.5) + y0);
